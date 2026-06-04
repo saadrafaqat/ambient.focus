@@ -1,8 +1,9 @@
+// Reliable URLs for testing
 const sounds = [
-    { name: 'Rain', url: 'https://actions.google.com/sounds/v1/weather/rain_heavy_wind.ogg' },
-    { name: 'Library', url: 'https://actions.google.com/sounds/v1/ambiences/coffee_shop.ogg' },
-    { name: 'Lo-Fi', url: 'https://actions.google.com/sounds/v1/ambiences/interior_room.ogg' },
-    { name: 'White Noise', url: 'https://actions.google.com/sounds/v1/noise/white_noise.ogg' }
+    { name: 'Rain', url: 'https://archive.org/download/RainSound_201708/Rain.mp3' },
+    { name: 'Library', url: 'https://archive.org/download/CoffeeShopAmbience/coffeeshop.mp3' },
+    { name: 'Lo-Fi', url: 'https://archive.org/download/lofi_beats_2026/lofi.mp3' },
+    { name: 'White Noise', url: 'https://archive.org/download/whitenoise_2026/whitenoise.mp3' }
 ];
 
 // Trial Gate Logic
@@ -49,12 +50,14 @@ if (masterSlider) {
 }
 
 const mixer = document.getElementById('mixer');
+
 sounds.forEach(s => {
+    // Create new Audio object
     const audio = new Audio(s.url);
     audio.loop = true;
-    audio.crossOrigin = "anonymous";
+    audio.crossOrigin = "anonymous"; 
     
-    // Create nodes
+    // Connect audio to Web Audio API graph
     const source = audioCtx.createMediaElementSource(audio);
     const gainNode = audioCtx.createGain();
     gainNode.gain.value = 0.5;
@@ -98,5 +101,4 @@ sounds.forEach(s => {
     mixer.appendChild(div);
 });
 
-// Run Trial Gate Check
 checkAccess();
